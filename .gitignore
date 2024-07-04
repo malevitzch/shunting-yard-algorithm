@@ -33,3 +33,10 @@
 
 #anything with debug in it
 *debug*
+
+#cmake files
+CMakeFiles
+cmake_install.cmake
+Makefile
+CMakeCache.txt
+
