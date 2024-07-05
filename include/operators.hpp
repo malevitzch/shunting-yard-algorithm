@@ -3,13 +3,20 @@
 #include <string>
 using std::string;
 
+enum class Associativity
+{
+  Right,
+  Left
+};
+
 class Operator
 {
 private:
+  Associativity associativity;
   string name;
   string symbol;
 protected:
-  Operator(string name, string symbol);
+  Operator(string name, string symbol, Associativity associativity);
 public:
   Operator() = delete;
   string get_name() const;
@@ -21,7 +28,7 @@ private:
   std::function<int(int, int)> fn;
 public:
   BinaryOperator() = delete;
-  BinaryOperator(string name, string symbol, std::function<int(int, int)> fn);
+  BinaryOperator(string name, string symbol, Associativity associativity, std::function<int(int, int)> fn);
   int perform(int a, int b) const;
 };
 
@@ -31,6 +38,6 @@ private:
   std::function<int(int)> fn;
 public:
   UnaryOperator() = delete;
-  UnaryOperator(string name, string symbol, std::function<int(int)> fn);
+  UnaryOperator(string name, string symbol, Associativity associativity, std::function<int(int)> fn);
   int perform(int a) const;
 };
