@@ -1,11 +1,6 @@
 #include "../include/operators.hpp"
 
-
-//put your precedence here for now
-//std::vector<string> precedence = {"*", "/", "+", "-"};
-
-
-Operator::Operator(string name, string symbol, Associativity associativity) : name(name), symbol(symbol), associtivity(associativity) {}
+Operator::Operator(string name, string symbol, Associativity associativity) : name(name), symbol(symbol), associativity(associativity) {}
 
 string Operator::get_name() const
 {
@@ -15,7 +10,6 @@ string Operator::get_symbol() const
 {
   return symbol;
 }
-
 
 BinaryOperator::BinaryOperator(string name, string symbol, Associativity associativity, std::function<int(int, int)> fn) : Operator(name, symbol, associativity), fn(fn) {}
 int BinaryOperator::perform(int a, int b) const
