@@ -21,7 +21,6 @@ public:
   Operator() = delete;
   string get_name() const;
   string get_symbol() const;
-  size_t get_precedence() const;
 };
 class BinaryOperator : public Operator
 {
