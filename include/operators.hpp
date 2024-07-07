@@ -21,7 +21,7 @@ private:
 protected:
   Operator(string name, string symbol, size_t precedence, Associativity associativity);
 public:
-  Operator() = delete;
+  Operator() = default;
   string get_name() const;
   string get_symbol() const;
   size_t get_precedence() const;
@@ -32,7 +32,7 @@ class BinaryOperator : public Operator
 private:
   std::function<int(int, int)> fn;
 public:
-  BinaryOperator() = delete;
+  BinaryOperator() = default;
   BinaryOperator(string name, string symbol, size_t precedence, Associativity associativity, std::function<int(int, int)> fn);
   int perform(int a, int b) const;
 };
@@ -42,8 +42,11 @@ class UnaryOperator : public Operator
 private:
   std::function<int(int)> fn;
 public:
-  UnaryOperator() = delete;
+  UnaryOperator() = default;
   UnaryOperator(string name, string symbol, size_t precedence, Associativity associativity, std::function<int(int)> fn);
   int perform(int a) const;
 };
+
+std::map<string, BinaryOperator> get_binary_operator_map(std::vector<BinaryOperator> binary_operators);
+std::map<string, UnaryOperator> get_unary_operator_map(std::vector<UnaryOperator> unary_operators);
 
