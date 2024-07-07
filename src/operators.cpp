@@ -28,5 +28,3 @@ int UnaryOperator::perform(int a) const
 {
   return fn(a);
 }
-
-

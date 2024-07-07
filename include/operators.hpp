@@ -47,4 +47,3 @@ public:
   int perform(int a) const;
 };
 
-std::map<string, BinaryOperator> get_binary_operator_map(std::vector<BinaryOperator> operator_vector);
