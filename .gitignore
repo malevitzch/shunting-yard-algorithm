@@ -1,3 +1,4 @@
+!.gitignore
 # Prerequisites
 *.d
 
@@ -39,4 +40,6 @@ CMakeFiles
 cmake_install.cmake
 Makefile
 CMakeCache.txt
+
+*shunting_yard_algorithm*
 
