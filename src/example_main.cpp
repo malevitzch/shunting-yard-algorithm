@@ -6,7 +6,10 @@ int add(int a, int b)
 {
   return a+b;
 }
-
+int neg(int a)
+{
+  return a*-1;
+}
 int main()
 {
   BinaryOperator addition("+", "Addition", 2, Associativity::Left, add);

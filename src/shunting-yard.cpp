@@ -26,7 +26,8 @@ std::vector<string> mark_unary(std::vector<string> expression, std::map<string, 
   }
   return expression; //TODO: consider making this run on references and just modify expression in-place
 }
-std::vector<string> infix_to_postfix(std::vector<string> expression, std::map<string, BinaryOperator>& binary_operators, std::map<string, UnaryOperator>& unary_operators)
+
+std::map<string, UnaryOperator> get_prefixed_unary_operator_map(std::map<string, UnaryOperator>& unary_operators)
 {
   string prefix = PREFIX;
   std::map<string, UnaryOperator> prefixed_unary_operators;
@@ -34,10 +35,22 @@ std::vector<string> infix_to_postfix(std::vector<string> expression, std::map<st
   {
     prefixed_unary_operators[prefix + symbol] = op;
   }
+  return prefixed_unary_operators;
+}
+#include <iostream>
+std::vector<string> infix_to_postfix(std::vector<string> expression, std::map<string, BinaryOperator>& binary_operators, std::map<string, UnaryOperator>& unary_operators)
+{
+  string prefix = PREFIX;
+  std::map<string, UnaryOperator> prefixed_unary_operators = get_prefixed_unary_operator_map(unary_operators);
+  expression = mark_unary(expression, binary_operators, unary_operators);
+  for(string s : expression)
+  {
+      std::cout<<s << "\n";
+  }
   //TODO: finish
 }
 
-int shunting_yard_eval(std::vector<string> expression, std::vector<BinaryOperator> binary_operators, std::vector<UnaryOperator> unary_operators)
+int expression_eval(std::vector<string> expression, std::vector<BinaryOperator> binary_operators, std::vector<UnaryOperator> unary_operators)
 {
   std::map<string, BinaryOperator> binary_op_map = get_binary_operator_map(binary_operators);
   std::map<string, UnaryOperator> unary_op_map = get_unary_operator_map(unary_operators);

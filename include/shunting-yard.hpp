@@ -11,6 +11,6 @@
 class BinaryOperator;
 class UnaryOperator;
 using std::string;
-
+std::map<string, UnaryOperator> get_prefixed_unary_operator_map(std::map<string, UnaryOperator>& unary_operators);
 std::vector<string> mark_unary(std::vector<string> expression, std::map<string, BinaryOperator>& binary_operators, std::map<string, UnaryOperator>& unary_operators);
 std::vector<string> infix_to_postfix(std::vector<string> expression, std::map<string, BinaryOperator>& binary_operators, std::map<string, UnaryOperator>& unary_operators); 
