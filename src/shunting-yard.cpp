@@ -41,6 +41,6 @@ int shunting_yard_eval(std::vector<string> expression, std::vector<BinaryOperato
 {
   std::map<string, BinaryOperator> binary_op_map = get_binary_operator_map(binary_operators);
   std::map<string, UnaryOperator> unary_op_map = get_unary_operator_map(unary_operators);
-  std::vector<string> postfix_notation_expression = infix_to_postfix(expression, binary_op_map,unary_op_map);
+  std::vector<string> postfix_notation_expression = infix_to_postfix(expression, binary_op_map, unary_op_map);
   //TODO: finish
 }
