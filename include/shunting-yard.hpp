@@ -2,8 +2,8 @@
 #include <vector>
 #include <map>
 
-#ifndef prefix
-#define prefix "u";
+#ifndef PREFIX
+#define PREFIX "u";
 #endif
 //"u" is the default prefix added to unary operators
 //if, for some reason, the symbol "u" + operator name might be a valid symbol in your code, you need to change the prefix to something else
