@@ -28,5 +28,19 @@ std::vector<string> mark_unary(std::vector<string> expression, std::map<string, 
 }
 std::vector<string> infix_to_postfix(std::vector<string> expression, std::map<string, BinaryOperator>& binary_operators, std::map<string, UnaryOperator>& unary_operators)
 {
-  //TODO
+  string prefix = PREFIX;
+  std::map<string, UnaryOperator> prefixed_unary_operators;
+  for(auto&[symbol, op] : unary_operators)
+  {
+    prefixed_unary_operators[prefix + symbol] = op;
+  }
+  //TODO: finish
+}
+
+int shunting_yard_eval(std::vector<string> expression, std::vector<BinaryOperator> binary_operators, std::vector<UnaryOperator> unary_operators)
+{
+  std::map<string, BinaryOperator> binary_op_map = get_binary_operator_map(binary_operators);
+  std::map<string, UnaryOperator> unary_op_map = get_unary_operator_map(unary_operators);
+  std::vector<string> postfix_notation_expression = infix_to_postfix(expression, binary_op_map,unary_op_map);
+  //TODO: finish
 }
