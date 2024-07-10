@@ -1,5 +1,6 @@
 #include "../include/shunting-yard.hpp"
 #include "../include/operators.hpp"
+#include <stack>
 std::vector<string> mark_unary(std::vector<string> expression, std::map<string, BinaryOperator>& binary_operators, std::map<string, UnaryOperator>& unary_operators)
 {
   string prefix = PREFIX;
@@ -46,6 +47,23 @@ std::vector<string> infix_to_postfix(std::vector<string> expression, std::map<st
   for(string s : expression)
   {
       std::cout<<s << "\n";
+  }
+  std::vector<string> postfix_notation;
+  std::stack<string> operator_stack;
+  for(string token : expression)
+  {
+    //if()
+  }
+
+  while(!operator_stack.empty())
+  {
+    if(operator_stack.top() == "(")
+    {
+      //TODO: error here
+      continue;
+    }
+    postfix_notation.push_back(operator_stack.top());
+    operator_stack.pop();
   }
   //TODO: finish
 }
