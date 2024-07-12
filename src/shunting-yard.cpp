@@ -48,11 +48,54 @@ std::vector<string> infix_to_postfix(std::vector<string> expression, std::map<st
   {
       std::cout<<s << "\n";
   }
+  auto is_unary_op = [&prefixed_unary_operators](string op) -> bool
+  {
+    return prefixed_unary_operators.find(op) != prefixed_unary_operators.end();
+  };
+  auto is_binary_op = [&binary_operators](string op) -> bool 
+  {
+    return binary_operators.find(op) != binary_operators.end();
+  };
   std::vector<string> postfix_notation;
   std::stack<string> operator_stack;
   for(string token : expression)
   {
-    //if()
+    if(token == "(")
+    {
+      operator_stack.push("(");
+    }
+    else if(token == ")")
+    {
+      while(1)
+      {
+        if(operator_stack.empty())
+        {
+          //TODO: error here, mismatched parentheses
+        }
+        if(operator_stack.top() == "(")
+        {
+          operator_stack.pop();
+          break;
+        }
+        else
+        {
+          postfix_notation.push_back(operator_stack.top());
+          operator_stack.pop();
+        }
+      }
+    }
+    else if(is_unary_op(token))
+    {
+      
+    }
+    else if(is_binary_op(token))
+    {
+
+    }
+    else
+    {
+      postfix_notation.push_back(token);
+    }
   }
 
   while(!operator_stack.empty())
@@ -65,7 +108,7 @@ std::vector<string> infix_to_postfix(std::vector<string> expression, std::map<st
     postfix_notation.push_back(operator_stack.top());
     operator_stack.pop();
   }
-  //TODO: finish
+  return postfix_notation;
 }
 
 int expression_eval(std::vector<string> expression, std::vector<BinaryOperator> binary_operators, std::vector<UnaryOperator> unary_operators)
