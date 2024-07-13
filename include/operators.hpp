@@ -17,7 +17,7 @@ private:
   string name;
   string symbol;
 protected:
-  Operator(string name, string symbol);
+  Operator(string symbol, string name);
 public:
   Operator() = default;
   string get_name() const;
@@ -31,7 +31,7 @@ private:
   Associativity associativity;
 public:
   BinaryOperator() = default;
-  BinaryOperator(string name, string symbol, size_t precedence, Associativity associativity, std::function<int(int, int)> fn);
+  BinaryOperator(string symbol, string name, size_t precedence, Associativity associativity, std::function<int(int, int)> fn);
   size_t get_precedence() const;
   Associativity get_associativity() const;
   int perform(int a, int b) const;
@@ -43,7 +43,7 @@ private:
   std::function<int(int)> fn;
 public:
   UnaryOperator() = default;
-  UnaryOperator(string name, string symbol, std::function<int(int)> fn);
+  UnaryOperator(string symbol, string name, std::function<int(int)> fn);
   int perform(int a) const;
 };
 

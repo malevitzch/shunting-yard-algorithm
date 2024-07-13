@@ -1,6 +1,6 @@
 #include "../include/operators.hpp"
 
-Operator::Operator(string name, string symbol) : name(name), symbol(symbol) {}
+Operator::Operator(string symbol, string name) : name(name), symbol(symbol) {}
 string Operator::get_name() const
 {
   return name;
@@ -10,7 +10,7 @@ string Operator::get_symbol() const
   return symbol;
 }
 
-BinaryOperator::BinaryOperator(string name, string symbol, size_t precedence, Associativity associativity, std::function<int(int, int)> fn) : Operator(name, symbol), fn(fn) {}
+BinaryOperator::BinaryOperator(string symbol, string name, size_t precedence, Associativity associativity, std::function<int(int, int)> fn) : Operator(symbol, name), precedence(precedence), fn(fn) {}
 size_t BinaryOperator::get_precedence() const
 {
   return precedence;
@@ -24,7 +24,7 @@ int BinaryOperator::perform(int a, int b) const
   return fn(a, b);
 }
 
-UnaryOperator::UnaryOperator(string name, string symbol, std::function<int(int)> fn) : Operator(name, symbol), fn(fn) {}
+UnaryOperator::UnaryOperator(string symbol, string name, std::function<int(int)> fn) : Operator(symbol, name), fn(fn) {}
 int UnaryOperator::perform(int a) const
 {
   return fn(a);

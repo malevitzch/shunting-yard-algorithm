@@ -82,12 +82,14 @@ std::vector<string> infix_to_postfix(std::vector<string> expression, std::map<st
     }
     else if(is_unary_op(token))
     {
+      //std::cout<<"unary: "<< token << "\n";
       operator_stack.push(token);
     }
     else if(is_binary_op(token))
     {
-      while(!operator_stack.empty() && (is_unary_op(operator_stack.top()) || (is_binary_op(operator_stack.top()) && binary_operators[operator_stack.top()].get_precedence() >= binary_operators[token].get_precedence())))
-      {
+      //std::cout<<"binary: "<< token << "\n";
+      while(!operator_stack.empty() && (is_unary_op(operator_stack.top()) || (is_binary_op(operator_stack.top()) && binary_operators[operator_stack.top()].get_precedence() <= binary_operators[token].get_precedence())))
+      { 
         postfix_notation.push_back(operator_stack.top());
         operator_stack.pop();
       }
@@ -95,7 +97,7 @@ std::vector<string> infix_to_postfix(std::vector<string> expression, std::map<st
     }
     else
     {
-      std::cout<<"<"<<token<<">";
+      //std::cout<<"literal: "<< token << "\n";
       postfix_notation.push_back(token);
     }
   }
@@ -117,6 +119,44 @@ int expression_eval(std::vector<string> expression, std::vector<BinaryOperator> 
 {
   std::map<string, BinaryOperator> binary_op_map = get_binary_operator_map(binary_operators);
   std::map<string, UnaryOperator> unary_op_map = get_unary_operator_map(unary_operators);
+  std::map<string, UnaryOperator> prefixed_unary_ops = get_prefixed_unary_operator_map(unary_op_map);
   std::vector<string> postfix_notation_expression = infix_to_postfix(expression, binary_op_map, unary_op_map);
-  //TODO: finish
+  for(string s : postfix_notation_expression)
+  {
+      std::cout<< s<<" ";
+  }
+  std::cout<<"\n";
+
+  auto is_unary_op = [&prefixed_unary_ops](string op)
+  {
+    return prefixed_unary_ops.find(op) != prefixed_unary_ops.end();
+  };
+  auto is_binary_op = [&binary_op_map](string op)
+  {
+    return binary_op_map.find(op) != binary_op_map.end();
+  };
+  std::stack<int> st;
+  for(string token : postfix_notation_expression)
+  {
+    if(binary_op_map.find(token) != binary_op_map.end())
+    {
+      //std::cout<<token << " IS BINARY" <<std::endl;
+      //TODO: optimize
+      int b = st.top();
+      st.pop();
+      int a = st.top();
+      st.pop();
+      st.push(binary_op_map[token].perform(a, b));
+    }
+    else if(is_unary_op(token))
+    { 
+      st.top() = prefixed_unary_ops[token].perform(st.top());
+    }
+    else
+    {
+     // std::cout<<token << " IS A NUMBER" <<std::endl;
+      st.push(stoi(token));
+    }
+  }
+  return st.top();
 }
