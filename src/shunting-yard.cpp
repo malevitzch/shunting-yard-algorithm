@@ -86,11 +86,16 @@ std::vector<string> infix_to_postfix(std::vector<string> expression, std::map<st
     }
     else if(is_unary_op(token))
     {
-      
+      operator_stack.push(token);
     }
     else if(is_binary_op(token))
     {
-
+      while(!operator_stack.empty() && (is_unary_op(operator_stack.top()) || (is_binary_op(operator_stack.top()) && binary_operators[operator_stack.top()].get_precedence() >= binary_operators[token].get_precedence())))
+      {
+        postfix_notation.push_back(operator_stack.top());
+        operator_stack.pop();
+      }
+      operator_stack.push(token);
     }
     else
     {
