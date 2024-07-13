@@ -44,10 +44,6 @@ std::vector<string> infix_to_postfix(std::vector<string> expression, std::map<st
   string prefix = PREFIX;
   std::map<string, UnaryOperator> prefixed_unary_operators = get_prefixed_unary_operator_map(unary_operators);
   expression = mark_unary(expression, binary_operators, unary_operators);
-  for(string s : expression)
-  {
-      std::cout<<s << "\n";
-  }
   auto is_unary_op = [&prefixed_unary_operators](string op) -> bool
   {
     return prefixed_unary_operators.find(op) != prefixed_unary_operators.end();
@@ -99,6 +95,7 @@ std::vector<string> infix_to_postfix(std::vector<string> expression, std::map<st
     }
     else
     {
+      std::cout<<"<"<<token<<">";
       postfix_notation.push_back(token);
     }
   }

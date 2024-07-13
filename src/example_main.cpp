@@ -1,5 +1,6 @@
 #include "../include/operators.hpp"
 #include "../include/simple-linter.hpp"
+#include "../include/shunting-yard.hpp"
 #include <iostream>
 
 std::vector<BinaryOperator> get_binary_operators()
@@ -21,9 +22,12 @@ int main()
 {
   std::vector<UnaryOperator> unary_ops = get_unary_operators();
   std::vector<BinaryOperator> binary_ops = get_binary_operators();
+  std::map<string, BinaryOperator> binary_op_map = get_binary_operator_map(binary_ops);
+  std::map<string, UnaryOperator> unary_op_map = get_unary_operator_map(unary_ops);
   std::vector<string> tokenized_expr = tokenize_expression("x8+7--31 * (8 / -217)");
-  for(string s : tokenized_expr)
+  std::vector<string> postfix = infix_to_postfix(tokenized_expr, binary_op_map, unary_op_map);
+  for(string s : postfix)
   {
-      std::cout<< "["<< s<<"]";
+      std::cout<< s<<" ";
   }
 }
